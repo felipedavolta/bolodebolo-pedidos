@@ -581,11 +581,15 @@ function voltarDoPagamento(){
 }
 function goPagamento(){show('screen-pagamento',80);}
 function goResumo(){
-  document.getElementById('resumo-card').innerHTML=buildResumo();
-  document.getElementById('copy-area').textContent=buildTexto();
-  document.getElementById('whats-success').classList.remove('show');
-  document.getElementById('btn-mapa-wrap').style.display=st.entrega==='retirada'?'block':'none';
-  show('screen-resumo',100);
+  try {
+    document.getElementById('resumo-card').innerHTML=buildResumo();
+    document.getElementById('copy-area').textContent=buildTexto();
+    document.getElementById('whats-success').classList.remove('show');
+    document.getElementById('btn-mapa-wrap').style.display=st.entrega==='retirada'?'block':'none';
+    show('screen-resumo',100);
+  } catch(e) {
+    alert('Erro: '+e.message);
+  }
 }
 function enviarWhatsApp(){
   const txt=document.getElementById('copy-area').textContent;
