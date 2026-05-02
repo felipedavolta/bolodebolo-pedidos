@@ -333,6 +333,7 @@ const BOLOS=[
 ];
 const RUAS=["Rua Aroazes","Rua Francisco de Paula","Av. Jaime Poggi","Av. Franz Weissman","Rua Sergio Camargo","Rua Alfredo Ceschiatti","Rua Mario Agostinelli","Rua Amílcar de Castro","Outro endereço (fora da lista)"];
 const WHATS_NUM='5521986084321';
+const TAXA_ENTREGA=7;
 
 const st={carrinho:[],data:"",dataISO:"",entrega:"",rua:"",numero:"",complemento:"",pagamento:"",foraArea:false};
 
@@ -537,7 +538,6 @@ function buildEndereco(){
   const comp=document.getElementById('complemento')&&document.getElementById('complemento').value.trim();
   return st.rua+', '+st.numero+(comp?', '+comp:'');
 }
-const TAXA_ENTREGA=7;
 function boloLabel(c){return (c.label==='Único'?c.nome:c.nome+' '+c.label)+' — R$'+c.preco;}
 function buildTexto(){
   const end=buildEndereco();
@@ -581,15 +581,11 @@ function voltarDoPagamento(){
 }
 function goPagamento(){show('screen-pagamento',80);}
 function goResumo(){
-  try {
-    document.getElementById('resumo-card').innerHTML=buildResumo();
-    document.getElementById('copy-area').textContent=buildTexto();
-    document.getElementById('whats-success').classList.remove('show');
-    document.getElementById('btn-mapa-wrap').style.display=st.entrega==='retirada'?'block':'none';
-    show('screen-resumo',100);
-  } catch(e) {
-    alert('Erro: '+e.message);
-  }
+  document.getElementById('resumo-card').innerHTML=buildResumo();
+  document.getElementById('copy-area').textContent=buildTexto();
+  document.getElementById('whats-success').classList.remove('show');
+  document.getElementById('btn-mapa-wrap').style.display=st.entrega==='retirada'?'block':'none';
+  show('screen-resumo',100);
 }
 function enviarWhatsApp(){
   const txt=document.getElementById('copy-area').textContent;
